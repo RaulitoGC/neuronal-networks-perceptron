@@ -3,38 +3,41 @@
 \usepackage{titlesec}
 
 \titleclass{\subsubsubsection}{straight}[\subsection]
-\titleclass{\subsubsubsubsection}{straight}[\subsubsection]
-
 \newcounter{subsubsubsection}[subsubsection]
-\newcounter{subsubsubsubsection}[subsubsubsection]
-
 \renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
-\renewcommand\thesubsubsubsubsection{\thesubsubsubsection.\arabic{subsubsubsubsection}}
-
-\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}}% optional; useful if paragraphs are to be numbered
-\renewcommand\theparagraph{\thesubsubsubsubsection.\arabic{paragraph}}% optional; useful if paragraphs are to be numbered
-
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}}
 \titleformat{\subsubsubsection}
   {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
 \titlespacing*{\subsubsubsection}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+
+\def\toclevel@subsubsubsection{4}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+
+\titleclass{\subsubsubsubsection}{straight}[\subsection]
+\newcounter{subsubsubsubsection}[subsubsubsection]
+\renewcommand\thesubsubsubsubsection{\thesubsubsubsection.\arabic{subsubsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsubsection.\arabic{paragraph}}
 \titleformat{\subsubsubsubsection}
   {\normalfont\normalsize\bfseries}{\thesubsubsubsubsection}{1em}{}
 \titlespacing*{\subsubsubsubsection}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \makeatletter
-\makeatletter
 
-\def\toclevel@subsubsubsection{4}
-\def\toclevel@subsubsubsubsection{4}
-\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
-\def\l@subsubsubsubsection{\@dottedtocline{4}{7em}{4em}}
-\makeatother
+\def\toclevel@subsubsubsubsection{5}
+\def\l@subsubsubsubsection{\@dottedtocline{5}{11em}{4em}}
+
 \makeatother
 
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
 
