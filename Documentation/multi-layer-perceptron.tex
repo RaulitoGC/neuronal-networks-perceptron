@@ -1,40 +1,44 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{titlesec}
+\usepackage{url}
 
 \titleclass{\subsubsubsection}{straight}[\subsection]
-\titleclass{\subsubsubsubsection}{straight}[\subsubsection]
-
 \newcounter{subsubsubsection}[subsubsection]
-\newcounter{subsubsubsubsection}[subsubsubsection]
-
 \renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
-\renewcommand\thesubsubsubsubsection{\thesubsubsubsection.\arabic{subsubsubsubsection}}
-
-\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}}% optional; useful if paragraphs are to be numbered
-\renewcommand\theparagraph{\thesubsubsubsubsection.\arabic{paragraph}}% optional; useful if paragraphs are to be numbered
-
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}}
 \titleformat{\subsubsubsection}
   {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
 \titlespacing*{\subsubsubsection}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+
+\def\toclevel@subsubsubsection{4}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+
+\titleclass{\subsubsubsubsection}{straight}[\subsection]
+\newcounter{subsubsubsubsection}[subsubsubsection]
+\renewcommand\thesubsubsubsubsection{\thesubsubsubsection.\arabic{subsubsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsubsection.\arabic{paragraph}}
 \titleformat{\subsubsubsubsection}
   {\normalfont\normalsize\bfseries}{\thesubsubsubsubsection}{1em}{}
 \titlespacing*{\subsubsubsubsection}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \makeatletter
-\makeatletter
 
-\def\toclevel@subsubsubsection{4}
-\def\toclevel@subsubsubsubsection{4}
-\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
-\def\l@subsubsubsubsection{\@dottedtocline{4}{7em}{4em}}
-\makeatother
+\def\toclevel@subsubsubsubsection{5}
+\def\l@subsubsubsubsection{\@dottedtocline{5}{11em}{4em}}
+
 \makeatother
 
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
 
@@ -45,7 +49,18 @@
 \tableofcontents
 
 \section{Introducción}
-asd
+
+El cerebro humano es un sistema de cálculo muy complejo, puede llevar a cabo procesamientos que a primera vista parecen sencillos, como por ejemplo, el reconocimiento de imágenes. Esta capacidad que tiene el cerebro humano para pensar, recordar y resolver problemas ha inspirado a muchos científicos a intentar imitar estos funcionamientos.\hfill \break
+
+Los intentos de crear un ordenador que sea capaz de emular estas capacidades ha dado como resultado la aparición de las llamadas Redes Neuronales Artificales o Computación Neuronal.\hfill \break
+
+El principal objetivo del Reconocimiento de patrones es la clasificación ya sea supervisada o no supervisada. Aplicaciones como Data Mining, Web Searching, recuperación de datos multimedia, reconocimiento de rostros, reconocimientos de caracteres escritos a mano, etc., requieren de técnicas de reconocimiento de patrones robustas y eficientes.
+Las redes neuronales, por su capacidad de generalización de la información disponible y su tolerancia al ruido, constituyen una herramienta muy útil en la resolución de este tipo de problemas.\cite{patterRecognition}\hfill \break
+
+Este documento muestra los conceptos básicos de las Redes Neuronales y su regla de aprendizaje, en particular la configuración en \textit{Perceptrón Multicapa} y el varios algoritmos de aprendizaje (Propagación hacia atrás,Métodos de segundo orden, RPROP, Algoritmos Genéticos).
+
+
+\clearpage
 
 \section{Neurona Artificial}
 asd
@@ -116,4 +131,11 @@ asd
 asd
 \subsection{Conclusiones}
 asd
+
+
+
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
 \end{document}
