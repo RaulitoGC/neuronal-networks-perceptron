@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
+<<<<<<< HEAD
 \usepackage{titlesec}
 
 \titleclass{\subsubsubsection}{straight}[\subsection]
@@ -116,4 +117,21 @@ asd
 asd
 \subsection{Conclusiones}
 asd
+=======
+
+\title{}
+
+
+\begin{document}
+
+\section{Introducción}
+
+\section{Marco Teórico}
+\subsection{Redes Neuronales}
+\subsubsection{Neurona Biológica}
+\subsubsection{Neurona Artificial}
+\subsection{Perceptron Unicapa}
+\subsection{Perceptron Multicapa}
+
+>>>>>>> bcddafbb48122d634b9ba3ef689d6f027e80ea16
 \end{document}
