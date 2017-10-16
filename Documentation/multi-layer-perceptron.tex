@@ -219,16 +219,118 @@ Entonces, una neurona artificial es un procesador elemental. Se encarga de proce
 
 \clearpage
 
-\subsection{Redes Neuronales}
-asd
+\subsection{Redes Neuronales Artificiales}
+La capacidad de modelar funciones más complejas aumenta grandemente cuando la neurona no trabaja sola, sino interconectada con otras neuronas, formando Redes Neuronales Artificiales (RNA), tal como se observa de manera simplificada en la Figura \ref{fig:MLP}
 
-\subsubsection{Redes Neuronales Supervisadas}
-asd
-\subsubsubsection{Redes Neuronal Perceptron Multicapa}
 
-asd
-\subsubsection{Redes Neuronales No Supervisadas}
-asd
+\begin{figure}[h]
+\frame{
+\tikzset{%
+  every neuron/.style={
+    circle,
+    draw,
+    minimum size=1cm
+  },
+  neuron missing/.style={
+    draw=none, 
+    scale=4,
+    text height=0.333cm,
+    execute at begin node=\color{black}$\vdots$
+  },
+}
+
+\begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
+
+\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+  \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+
+\foreach \m [count=\y] in {1,missing,2}
+  \node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2-\y*1.25) {};
+
+\foreach \m [count=\y] in {1,missing,2}
+  \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
+
+\foreach \l [count=\i] in {1,2,3,n}
+  \draw [<-] (input-\i) -- ++(-1,0)
+    node [above, midway] {$I_\l$};
+
+\foreach \l [count=\i] in {1,n}
+  \node [above] at (hidden-\i.north) {$H_\l$};
+
+\foreach \l [count=\i] in {1,n}
+  \draw [->] (output-\i) -- ++(1,0)
+    node [above, midway] {$O_\l$};
+
+\foreach \i in {1,...,4}
+  \foreach \j in {1,...,2}
+    \draw [->] (input-\i) -- (hidden-\j);
+
+\foreach \i in {1,...,2}
+  \foreach \j in {1,...,2}
+    \draw [->] (hidden-\i) -- (output-\j);
+
+\foreach \l [count=\x from 0] in {Input, Hidden, Ouput}
+  \node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+\end{tikzpicture}
+
+}
+\centering
+\caption{Topologia de la Red Perceptron Multicapa.}
+\label{fig:MLP}
+\end{figure}
+
+
+La red mas simple se llama \textbf{perceptron multicapa}. Esta red define una relación entre las variables de entrada y las variables de salida. Esta relación se obtiene \textit{propagando} hacia adelante los valoers de las variables de entrada. Cada neurona procesa las información recibida por sus entradas y produce una respuesta o activación que se propaga, a través de las conexiones correspondientes, hacia las neuronas de la siguiente capa.\hfill \break
+
+Sea un perceptron multicapa con $C$ capas, de las cuales una es la capa de entrada, una la capa de salida y $C-2$ capas ocultas. Se tiene $n_c$ neuronas en la capa $c$, con $c= 1,2,3,....,C$. sea $W^c = (w_{ji}^c)$ la matriz de pesos asociada a las conexiones de la capa $c$ a la capa $c+1$ para $c=1,2,3,...,C-1$, donde $w_{ji}^c$ representa el peso de la conexión de la neurona $i$ de la capa $C$ a la neurona $j$ de la capa $C+1$. Sea $U^c = (u_j^c)$ el vector de umbrales  de las neuronas de la capa $c$ para $c=2,3,...,C$. Se denota $o_j^c$ a la activación de la neurona $j$ de la capa $c$; estas activaciones se calculan del siguiente modo:
+
+
+
+\begin{enumerate}
+\item 
+Entrada $(o_i^1)$. Estas neuronas transmiten hacia la red las señales recibidas del exterior
+
+\begin{equation} \label{eq4}
+o_j^1 = x_j \quad para \quad j=1,2,3,...n_1
+\end{equation}
+
+Donde  $X = (x_1,x_2,...,x_n)$ representan el vector de entrada a la red.
+
+\item
+Activación de las neuronas de  la capa oculta $c (o_j^c)$: Las neuronas ocutas procesan la informacion recibida aplicando la función de activación $f$ a la suma de los productos de las activaciones que recibe por sus correspondientes pesos:
+
+
+\begin{equation} \label{eq5}
+o_j^c = f(\sum_{i=1}^{\ n_{c-1}} w_{ji}^{c-1}o_i^{c-1} + u_j^c)
+\end{equation}
+
+Para $j = 1,2,3,....,n_c \quad y \quad c=2,3,...,c-1$
+
+\item
+Salida $(a_i^C)$ : Al igual que en las capas ocultas, la activación de estas neuronas viene dada por la función de activación $f$
+
+\begin{equation} \label{eq6}
+y_j = o_j^c = f(\sum_{i=1}^{\ n_{c-1}} w_{ji}^{c-1}o_i^{c-1} + u_j^c)
+\end{equation}
+
+Para $j=1,2,3,...,n_c \quad donde \quad Y=(y_1,y_2,,y_3,...,y_c)$ es el vector de salida de la red.
+
+\end{enumerate}
+
+Para el perecptron multicapa las funciones de activación mas usadas son la funciones \textbf{sigmoidal}:
+
+\begin{equation} \label{eq6}
+f(u) = \frac{1}{1+e^{-u}})
+\end{equation}
+
+y la función \textbf{tangente hiperbólica}
+
+\begin{equation} \label{eq7}
+f(u) = ( \frac{1 - e^{-u}}{1 + e^{-u}}) 
+\end{equation}
+
+Estas funciones tienen una forma similar pero se diferencian en que la sigmoidal tiene un rango continuo de valores dentro de los intervalor $[0,1]$ mientras que la tangente hiperbólica tiene un rango contínuo en el intervalo $[-1,1]$.
 
 
 \section{Caso de Estudio}
