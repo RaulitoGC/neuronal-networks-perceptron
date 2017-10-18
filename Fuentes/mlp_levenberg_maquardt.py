@@ -1,6 +1,6 @@
-from sklearn import preprocessing, metrics
 import numpy as np
-from neupy import algorithms, layers, plots
+from sklearn import preprocessing, metrics
+from neupy import algorithms, plots, layers
 
 X = []
 Y = []
@@ -27,33 +27,25 @@ y_train = Y[0:4025]
 x_test = X[4025:]
 y_test = Y[4025:]
 
-#rpropnet = algorithms.RPROP((57,7,1))
-rpropnet = algorithms.RPROP(
+lmnet = algorithms.LevenbergMarquardt(
     [
         layers.Input(57),
         layers.Sigmoid(7),
         layers.Sigmoid(1),
     ],
-    error='binary_crossentropy',
     verbose=True,
     shuffle_data=True,
-    maxstep=1,
-    minstep=1e-7,
+
 )
-rpropnet.train(input_train=x_train,target_train=y_train,
-               input_test=x_test,target_test=y_test,epochs=200)
-
-rpropnet.architecture()
-plots.error_plot(rpropnet)
-#plots.layer_structure(rpropnet)
-
-#y_train_predicted = rpropnet.predict(x_train).round()
-y_test_predicted = rpropnet.predict(x_test).round()
+lmnet.train(input_train=x_train,target_train=y_train,
+            input_test=x_test,target_test=y_test,epochs=200)
 
 
-#print(metrics.classification_report(y_train_predicted, y_train))
-#print(metrics.confusion_matrix(y_train_predicted, y_train))
+lmnet.architecture()
+plots.error_plot(lmnet)
+
+y_test_predicted = lmnet.predict(x_test).round()
+
 print()
 print(metrics.classification_report(y_test_predicted, y_test))
 print(metrics.confusion_matrix(y_test_predicted, y_test))
-
