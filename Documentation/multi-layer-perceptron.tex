@@ -8,6 +8,7 @@
 \usepackage{tikz}
 \usepackage{caption}
 \usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+\def\layersep{2.5cm}
 
 \usepackage{graphicx}
 \graphicspath{ {images/} }
@@ -250,16 +251,16 @@ La capacidad de modelar funciones más complejas aumenta grandemente cuando la n
 \foreach \m [count=\y] in {1,missing,2}
   \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
 
-\foreach \l [count=\i] in {1,2,3,n}
+\foreach \l [count=\i] in {1,2,3,N}
   \draw [<-] (input-\i) -- ++(-1,0)
-    node [above, midway] {$I_\l$};
+    node [above, midway] {$X_\l$};
 
-\foreach \l [count=\i] in {1,n}
-  \node [above] at (hidden-\i.north) {$H_\l$};
+\foreach \l [count=\i] in {1,m}
+  \node [above] at (hidden-\i.north) {$O_\l$};
 
-\foreach \l [count=\i] in {1,n}
+\foreach \l [count=\i] in {1,M}
   \draw [->] (output-\i) -- ++(1,0)
-    node [above, midway] {$O_\l$};
+    node [above, midway] {$Y_\l$};
 
 \foreach \i in {1,...,4}
   \foreach \j in {1,...,2}
@@ -320,13 +321,13 @@ Para $j=1,2,3,...,n_c \quad donde \quad Y=(y_1,y_2,,y_3,...,y_c)$ es el vector d
 
 Para el perecptron multicapa las funciones de activación mas usadas son la funciones \textbf{sigmoidal}:
 
-\begin{equation} \label{eq6}
+\begin{equation} \label{eq7}
 f(u) = \frac{1}{1+e^{-u}})
 \end{equation}
 
 y la función \textbf{tangente hiperbólica}
 
-\begin{equation} \label{eq7}
+\begin{equation} \label{eq8}
 f(u) = ( \frac{1 - e^{-u}}{1 + e^{-u}}) 
 \end{equation}
 
@@ -342,7 +343,7 @@ dirección de correo electrónico recibir a diario varios mensajes con propagand
 El crecimiento de Internet a nivel mundial esta cambiando nuestra forma de comunicación entre otros, por lo que cada vez la gente utiliza más el correo electrónico. A causa de un número tentativo de correos electrónicos los publicistas y spammers se ven los modos para obtener un listado grande de correos y así poder enviar spam. Todos los días, billones de e-mails invaden las bandejas de entrada de los usuarios de Internet. De todos éstos, una cantidad muy importante es considerada "correo basura". Compuesto por mensajes publicitarios no solicitados, cadenas de la suerte o incluso virus que se auto envían, el spam aqueja a más de un usuario, y hace que la tarea de revisar correo sea una verdadera molestia.\cite{emailspam}
 
 Los principales problemas son los siguientes:
-\begin{enumerate}
+\begin{itemize}
 \item Perdida de productividad y dinero en las empresas
 \item Amenaza la viabilidad de Internet como un medio efectivo de comunicación.
 \item Incremento de costos relacionados con el tiempo.
@@ -361,7 +362,7 @@ receptor. Causado por la cantidad masiva que los
 spammers envían a los correos electrónicos.
 \item Daño de imagen a terceros.
 \item Molestias por parte del receptor.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Justificacion}
 El correo electrónico, es sin duda un medio
@@ -388,25 +389,242 @@ capaz de permitir una mejor utilización y minimizar
 los dolores de cabeza a cualquier usuario del correo
 electrónico.\cite{emailspam}
 \subsection{Propuestas de Red Neuronal}
-asd
+Las redes neuronales tienen un gran poder en los algoritmos de Machine Learning. Ellos puedes ser usados para transformar las caracteristicas como un forma bastante compleja de decisión no lineal. Dentro de estos se encuentras el percetron multicapa que en primera instancia se puede utilizar para problemas de clasificación.
+
+Como el problema que estamos tratando en este documento es un problema comun de clasificación donde la red neuronal debera clasificar si un determinado email es o no es spam. En este problema, nosotros estamos dando un paquete de correos(que ya estan normalizados.) and la red neuronal decidirá si cada email es o no es spam. Depues de determinar los pesos fijos de la red le presentaremos  un nueva conjunto de correos (test data) y evaluaremos si estos correos son o no  correos spam.
 \subsubsection{Topologia}
-asd
+Tenemos tres capas en la red neuronal para la detección de spam.
+\begin{itemize}
+\item La primera capa son los datos de entrada que tienen 57 neuronas, 1 neurona por cada caracteristica del correo.
+
+\item La segunda capa es la capa intermedia que tiene 4 neuronas
+
+\item La capa final o de salida tiene 1 sola neurona que indica si es o no es spam
+\end{itemize}
+\clearpage
+
+\begin{figure}[h]
+\frame{
+\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
+    \tikzstyle{every pin edge}=[<-,shorten <=1pt]
+    \tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
+    \tikzstyle{input neuron}=[neuron, fill=green!50];
+    \tikzstyle{output neuron}=[neuron, fill=red!50];
+    \tikzstyle{hidden neuron}=[neuron, fill=blue!50];
+    \tikzstyle{annot} = [text width=4em, text centered]
+
+
+    \foreach \name / \y in {1,...,9}
+        \node[input neuron, pin=left:Entrada \#\y ] (I-\name) at (0,-\y) {};
+     
+     \node[input neuron, pin=left:Entrada \#57] (I-10) at (.25,-12) {};
+
+
+    \foreach \name / \y in {1,...,7}
+        \path[yshift=-1.5cm]
+            node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+
+    % Draw the output layer node
+    \node[output neuron,pin={[pin edge={->}]right:Salida}, right of=H-4] (O) {};
+
+    % Connect every node in the input layer with every node in the
+    % hidden layer.
+    \foreach \source in {1,...,9}
+        \foreach \dest in {1,...,7}
+            \path (I-\source) edge (H-\dest);
+     
+    \path (I-10) edge (H-1);
+    \path (I-10) edge (H-2);
+    \path (I-10) edge (H-3);
+    \path (I-10) edge (H-4);
+    \path (I-10) edge (H-5);
+    \path (I-10) edge (H-6);
+    \path (I-10) edge (H-7);
+
+    % Connect every node in the hidden layer with the output layer
+    \foreach \source in {1,...,7}
+        \path (H-\source) edge (O);
+
+    % Annotate the layers
+    \node[annot,above of=H-1, node distance=3cm] (hl) {Capa Oculta};
+    \node[annot,left of=hl] {Capa de Entrada};
+    \node[annot,right of=hl] {Capa de Salida};
+\end{tikzpicture}
+}
+\centering
+\caption{Topologia de la Red Perceptron Multicapa para la detección de correos spam.}
+\label{fig:MLP}
+\end{figure}
+
 \subsubsection{Reglas}
-asd
+
 \subsubsubsection{Regla de propagación}
-asd
+La regla de propagación esta determinada por la sumatoria de las entradas y los pesos, tomando como otra entrada a la neurona el $bias$.
+
+\begin{equation}
+u_j^c = \sum_{i=0}^{\ n_{c-1}} w_{ji}^{c-1}x_i^{c-1}
+\end{equation}
+
 \subsubsubsection{Regla de Activacion}
-asd
+La funcion de activación esta determinada por la funcion sigmoide.
+
+\begin{equation} \label{eq3}
+\begin{split}
+y 	&= ( \frac{1}{1+e^{-u_j^c}}) \\
+u	&= \sum_{i=0}^{\ n} w_{ji}x_i
+\end{split}
+\end{equation}
+
+Entonces la salida con esta función, tiene la siguiente forma
+
+\begin{equation} \label{eq1}
+\begin{split}
+y 	&= f(u)\\
+	&= f(\sum_{i=0}^{\ n} w_{ji}x_i)\\
+	&= ( \frac{1}{1+e^{-\sum_{i=0}^{\ n} w_{ji}x_i}}) \\
+\end{split}
+\end{equation}
+
+
 \subsubsubsection{Regla de Salida}
-asd
+Finalmente la regla de salida esta determinada por
+\begin{equation} \label{eq1}
+\begin{split}
+y_j^c 	&= f(u_j^c)\\
+		&= f(\sum_{i=0}^{\ n_{c-1}} w_{ji}^{c-1}x_i^{c-1})\\
+		&=  \frac{1}{1+e^{-\sum_{i=0}^{\ n_{c-1}} w_{ji}^{c-1}x_i^{c-1}}} \\
+\end{split}
+\end{equation}
 \subsubsubsection{Regla de Aprendizaje}
-asd
+Se han planteado tres reglas de aprendizaje, cada una de estas seran descritas a continuación.
 \subsubsubsubsection{Back Propagation}
-asd
-\subsubsubsubsection{Segundo Orden}
-asd
+Es la regla mas comun, para poder exlicar la regla de aprendizaje mediante propagación hacia atras, se tomara como ejemplo la la arquitectura planteada en\ref{fig:MLP}
+
+Considerando que tenemos dos capas, dado que la capa de entrada no hace ninguna operación, entonces:
+
+\begin{itemize}
+\item Capa I
+\begin{equation} \label{eq9}
+\begin{split}
+v_j^I = <w_j^I, X> = \sum_{i=0}^{\ N} w_{ji}^I x_i \\
+y_j^I =  f(v_j^I) = \frac{1}{1 + e^{-v_j^I}}
+\end{split}
+\end{equation}
+
+\item Capa II
+\begin{equation} \label{eq10}
+v_j^II = <w_j^II, y^I> 
+y_j^II =  f(v_j^II) 
+\end{equation}
+\end{itemize}
+
+Ahora para cada salida que tengamos de la capa II, calculamos el error total cometido, de la siguiente manera:
+
+\begin{equation} \label{eq11}
+\xi (n) = \frac{1}{2} \sum_{j=1}{M}e_j^2(n)
+\end{equation}
+Elevar al cuadro tiene mucha importancia dado que, imaginemos que en una salida $y_x$ el error sea $-1$ y en otra salida $y_k$ el error sea $-1$ al sumarlo el error total resultaría cero, entonces, al elevarlo al cuadrado tiene agunas ventajas como la mencionada.
+
+La regla de progapación hacia atras consiste en modificar los pesos para lograr el menor error posible,  para lograr esto debemos recordar la utilidad que tiene  el gradiente de una función:
+
+\textit{La gradiente  o también conocido  como vector gradiente, es un campo vectorial.El vector gradiente  de una funcion $f$ evaluado en un punto generico $x$ del  dominino de $f$, indica la dirección en la cual  el campo $f$ varía mas rápidamente y su módulo representa el ritmo de variación  de $f$ en la dirección de dicho vector gradiente.}\cite{gradient}
+
+\clearpage
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{gradiente}
+\centering
+\caption{Gradiente de una función $f$.}
+\label{fig:GRADIENT}
+\end{figure}
+
+Entonces para lograr disminuir el error, aplicaremos la siguiente variación:
+
+\begin{equation} \label{eq11}
+\nabla w_{ji}(n) =  -\mu \frac{\partial \xi(n)}{\partial w_{ji}(n)}
+\end{equation}
+
+\subsubsubsubsection{Metodo de Segundo Orden (Levenger - Marquardt)}
+
+El método de Levenger - Marquardt es un tipo de algoritmo de entrenamiento similar a los denominados quasi-Newton. Para entender la funcionalidad del método LM es conveniente empezar por comprender el método de Newton. El método
+de Newton es un método de segundo orden que constituye una alternativa a los métodos de gradiente conjugado para optimización rápida. El paso básico del método de Newton
+durante la época n es
+
+\begin{equation}
+w(n+1) = w(n) - H(n)^{-1}g(n)
+\end{equation}
+
+donde $w$ es el vector de pesos, $g(n)$ es el vector gradiente actual y $H(n)$ es la matriz Hessiana (de derivadas segundas) de la función de error respecto a los pesos, evaluada en los valores actuales de pesos y umbrales. El método de Newton generalmente converge más rápido que los métodos de gradiente conjugado. Desafortunadamente, la matriz Hessiana es compleja y costosa de calcular para las redes feedforward. Los algoritmos
+denominados quasi-Newton (método de la secante) calculan y actualizan una aproximación de la matriz Hessiana sin necesidad de resolver las derivadas de segundo orden en cada iteración. La actualización realizada es función del gradiente.
+Al igual que los métodos quasi-Newton, el algoritmo LM fue diseñado para acometer entrenamientos rápidos de segundo orden sin tener que calcular la matriz Hessiana.
+Cuando la función de error tiene la forma de una suma de cuadrados (el caso típico en las redes feedforward ), entonces la matriz Hessiana puede aproximarse como
+
+\begin{equation}
+H = J^TJ
+\end{equation}
+
+donde $J$ es la matriz Jacobiana que contiene las primeras derivadas de la función de error de la red respecto a los pesos y umbrales. El gradiente se obtiene como
+
+\begin{equation}
+g=J^Te
+\end{equation}
+
+siendo e el vector de errores de la red. El cálculo de la matriz Jacobiana se reduce a un simple cálculo del algoritmo de retropropagación que es mucho más sencillo que
+construir la matriz Hessiana. El método LM actualiza los pesos de forma similar al método de Newton pero introduciendo los cambios anteriores:
+
+\begin{equation}
+w(n+1) = w(n)[\textbf{J}^TJ + \mu I]^1\textbf{J}^Te
+\end{equation}
+
+donde el parámetro $\mu$ actua como tasa de aprendizaje. Cuando $\mu$ es cero, el algoritmo
+se convierte en el método de Newton empleando la forma aproximada del cálculo de la matriz Hessiana:
+
+\begin{equation}
+w(n+1) = w(n)H^1g
+\end{equation}
+
+Cuando $\mu$ es grande, se puede despreciar la aportación de la matriz Hessiana al cálculo y obtenemos el método de descenso de gradiente con un tamaño de paso $(\frac{1}{\mu}):$
+
+\begin{equation}
+w(n+1) = w(n)\frac{1}{u}g
+\end{equation}
+
+El método de Newton es más eficaz cerca de un mínimo de error, así que el objetivo es migrar al método de Newton tan pronto como sea posible. Así pues, se reduce $\mu$ tras cada paso exitoso (cada vez que el error se logra reducir) y solo se aumenta cuando el
+error aumenta respecto a la iteración anterior. Con esta metodología, la función de error siempre disminuye tras cada iteración del algoritmo.
+El algoritmo LM parece ser el método más rápido para entrenar redes feedforward de tamaño moderado (hasta varios centenares de parámetros). Su principal desventaja es que requiere almacenar las matrices Jacobianas que, para ciertos conjuntos de datos,
+pueden ser muy grandes, lo que significa un gran uso de memoria.
+
 \subsubsubsubsection{R-PROP}
-asd
+El algoritmo RPROP cálcula el cambio de los pesos en forma separada, es guiado por laprimera derivada de $f$ , en este caso; $f$ es una medida de la diferencia entre la salida arrojada por la red neuronal y el valor esperado. RPROP utiliza parámetros independientes que controlan la velocidad con que se recorre la función objetivo para cada uno de los pesos de la red neuronal, al no verse afectado por la saturación de la red neuronal converge mas rápidamente que otros algoritmos
+
+Un perceptron multicapa busca  una función $y_t$ que se construye  en funcion  de sus valores  pasados, $y_{y-1}, y_{t-2}, ...., y_{t-P}$.
+
+\begin{equation}
+y_t = \beta_* + \sum_{H}^{h=1}\beta_hg [\frac{1}{2\sigma_y^-1}(\alpha_{x,j} + \sum_{p=1}^{P}\alpha_{p,h}y_{t-p})] + \xi_t
+\end{equation}
+
+Donde los parametros $\omega = [\beta_*, \beta_h, \alpha_{*,h}, \alpha_{p,h}], h=1...H, p=1...P$ son estimados usando el principio de máxima versomilitud de los residuales, el cual equivale a la minimización de una función de costo que es definida usualmente como error cuadratico medio. Esta ecuación equivale a un modelo estadístico no paramétrico de regresión no lineal, $\xi_t$ sigue una distribución normal con media cero y varianza desconocida $\sigma^2$; $H$ representa el númerode neuronas en la capa oculta,$P$ es el número de rezagos de la variable dependiente y $g$ es la función de activación de las neuronas de la capa oculta.
+
+El algoritmo RPROP busca encontrar los valores del vector de parámetros $\omega$, de forma que se minimice la diferencia entre los valores reales $y_t^*$ y los valores de $y_t$.
+
+La actualización de los pesos, viene dada por
+
+\begin{equation}
+\triangle w_{ji}(n) = -\alpha(n) signo(\nabla_{w_{j,i}(n)}E)
+\end{equation}
+
+La utilizacion del signo del gradiente en la actualización de los pesos supone un ahorro en la carga computacional. Por otro lado, la constante  de adaptación viene dada por
+\begin{equation}
+\alpha(n) = 
+\begin{cases}
+\alpha(n) = 	min(	\alpha(n)u,\alpha_{max}) \longleftrightarrow (\nabla_{w_{j,i}(n)}E)(\nabla_{w_{j,i}(n-1)}E)>0 \\
+max(	\alpha(n)d,\alpha_{min}) \longleftrightarrow (\nabla_{w_{j,i}(n)}E)(\nabla_{w_{j,i}(n-1)}E)>0 \\
+\end{cases} \quad
+\end{equation}
+
+con $u > 1$ y $ d < 1 $.
+
+Se intenta tener un valor bajo en las proximidades del mínimo y mayor lejos de éste.controlando de esta manera la velocidad de convergencia, pero se limitan los valores ya quesi son demasiado grandes se pueden tener inestabilidades y si son demasiado pequeños lavelocidad de convergencia puede ser muy lenta.
 
 \subsection{Desarrollo de la solucion}
 Para el desarrollo del perceptrón multicapa planteado anteriormente hemos se escogio como primera herramienta $R$( Figura \ref{Fig:R}) y con el IDE Rstudio( Figura \ref{Fig:RSTUDIO}), pero no se utilizo  porque \textbf{el tiempo de aprendizaje para un numero mayor de 10 epocas era muy elevado}, a comparacion de la segunda herramienta, python.
@@ -460,7 +678,7 @@ Para el desarrollo de los algoritmos de aprendizaje para el perceptron multicapa
 
 Actualmente soporta la siguientes características:
 
-\begin{enumerate}
+\begin{itemize}
 \item Deep Learning
 \item Reinforcement Learning (RL)
 \item Convolutional Neuronal Networks (CNN)
@@ -473,7 +691,7 @@ Actualmente soporta la siguientes características:
 \item Basic Linear Networks
 \item Regularizartion Algorithms
 \item Step Update Algorithms
-\end{enumerate}
+\end{itemize}
 
 \begin{figure}[h]
 \includegraphics[width=3.5cm, height=3.5cm]{neupy}
@@ -491,10 +709,7 @@ asd
 \subsubsubsection{R-PROP}
 asd
 
-\subsection{Resultados}
-asd
 \subsection{Conclusiones}
-asd
 
 
 \bibliographystyle{unsrt}
