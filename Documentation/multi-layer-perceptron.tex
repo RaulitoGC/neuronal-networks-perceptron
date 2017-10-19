@@ -334,12 +334,60 @@ Estas funciones tienen una forma similar pero se diferencian en que la sigmoidal
 
 
 \section{Caso de Estudio}
-asd
+Todos los días, millones de e-mails invaden las bandejas de entrada de los usuarios de Internet. De todos éstos, una cantidad muy importante es considerada "correo basura". Compuesto por mensajes publicitarios no solicitados, cadenas de la suerte o incluso virus que se autoenvían, el spam afecta a más de un usuario, y
+hace que la tarea de revisar el correo sea una verdadera molestia.
+El problema fundamental lo representan los spams, que son mensajes publicitarios no solicitados. Ya no resulta raro para quienes contamos con una
+dirección de correo electrónico recibir a diario varios mensajes con propagandas de las más variadas temáticas. A pesar de que ningún método de detección de Spam es totalmente efectivo, consideramos que si es posible mejorar los existentes y reducir considerablemente las deficiencias que actualmente presentan las herramientas disponibles. Es un hecho que parte de los mensajes no deseados escapan a los sistemas de detección de correo basura constituyendo así un "falso negativo", igualmente existe la posibilidad de identificar un mensaje como Spam sin serlo, lo que se conoce como "falso positivo". La idea es tomar las máximas precauciones posibles para minimizar este efecto, y para ello se debe ser consciente de este hecho antes de adoptar las posibles medidas de filtrado que se propondrá.\cite{emailspam}
 \subsection{Problema}
-asd
+El crecimiento de Internet a nivel mundial esta cambiando nuestra forma de comunicación entre otros, por lo que cada vez la gente utiliza más el correo electrónico. A causa de un número tentativo de correos electrónicos los publicistas y spammers se ven los modos para obtener un listado grande de correos y así poder enviar spam. Todos los días, billones de e-mails invaden las bandejas de entrada de los usuarios de Internet. De todos éstos, una cantidad muy importante es considerada "correo basura". Compuesto por mensajes publicitarios no solicitados, cadenas de la suerte o incluso virus que se auto envían, el spam aqueja a más de un usuario, y hace que la tarea de revisar correo sea una verdadera molestia.\cite{emailspam}
+
+Los principales problemas son los siguientes:
+\begin{enumerate}
+\item Perdida de productividad y dinero en las empresas
+\item Amenaza la viabilidad de Internet como un medio efectivo de comunicación.
+\item Incremento de costos relacionados con el tiempo.
+\item Genera importantes costos de seguridad a empresas ISP’s.
+\item Incremento de propagación de virus informáticos.
+\item Saturación de servidores. Muchos servidores
+dedicados para uso privado o para uso general son
+congestionados implicando una reducción decalidad
+de servicio.
+\item Denegación de servicios (Deny of services). Una
+cantidad excesiva de correos no deseados puedo
+congestionar totalmente el servicio y así denegarlo al
+mismo.
+\item Buzón de entrada incontrolable por parte del
+receptor. Causado por la cantidad masiva que los
+spammers envían a los correos electrónicos.
+\item Daño de imagen a terceros.
+\item Molestias por parte del receptor.
+\end{enumerate}
+
 \subsection{Justificacion}
-asd
-\subsection{Propuestas de Solucion}
+El correo electrónico, es sin duda un medio
+que nos permite comunicar rápidamente ofreciéndonos reducción de tiempo y costo Sin
+embargo muchas personas aprovechan esto para
+utilizarlo de forma no legítima con fines publicitarios,
+ocasionando una serie de problemas a
+nivel personal comoempresarial.
+Como contramedida a esta acción se
+necesitan herramientass capaces de reducir el spam.
+De esta manera es muy importante la
+elaboración de anti-spams, ya que es la forma más
+viable de acabar con el spam y ofrecer a los
+usuarios seguridad y tranquilidad en los correos
+electrónicos, y por otra parte reducir los costos para
+las empresas ISP’s y controlar la saturación
+de servidores de correo electrónico.
+\textbf{El desarrollo de una
+herramienta informática capaz de aminorar con los
+problemas que causa el spam}, no es solamente capaz
+de \textbf{ahorrar mucho dinero} en aquellas empresas que
+suelen estar perjudicadas con el spam, sino también es
+capaz de permitir una mejor utilización y minimizar
+los dolores de cabeza a cualquier usuario del correo
+electrónico.\cite{emailspam}
+\subsection{Propuestas de Red Neuronal}
 asd
 \subsubsection{Topologia}
 asd
@@ -359,36 +407,94 @@ asd
 asd
 \subsubsubsubsection{R-PROP}
 asd
-\subsubsubsubsection{Algoritmos Geneticos}
-asd
 
 \subsection{Desarrollo de la solucion}
-asd
+Para el desarrollo del perceptrón multicapa planteado anteriormente hemos se escogio como primera herramienta $R$( Figura \ref{Fig:R}) y con el IDE Rstudio( Figura \ref{Fig:RSTUDIO}), pero no se utilizo  porque \textbf{el tiempo de aprendizaje para un numero mayor de 10 epocas era muy elevado}, a comparacion de la segunda herramienta, python.
+
+\clearpage
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.7\linewidth]{rstudio}
+     \caption{IDE Rstudio}
+     \label{Fig:RSTUDIO}
+   \end{minipage}\hfill
+   \begin {minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.7\linewidth]{r}
+     \caption{Lenguaje R}
+     \label{Fig:R}
+   \end{minipage}
+\end{figure}
+
 \subsubsection{Herramientas}
-asd
-\subsubsubsection{R}
-asd
-\subsubsubsection{RStudio}
-asd
+Como se dijo anteriormente no se utilizó la herramienta R debido a su alto tiempo en procesar la información, a continuación se describen las herramientas utilizadas.
+
+\subsubsubsection{Python}
+Python es un lenguaje de programación interpretado cuya filosofía hace hincapié en una sintaxis que favorezca un código legible.
+
+Se trata de un lenguaje de programación multiparadigma, ya que soporta orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, usa tipado dinámico y es multiplataforma.
+
+Es administrado por la Python Software Foundation. Posee una licencia de código abierto, denominada Python Software Foundation License,1 que es compatible con la Licencia pública general de GNU a partir de la versión 2.1.1, e incompatible en ciertas versiones anteriores.\cite{python}
+
+\begin{figure}[h]
+\includegraphics[width=3cm, height=3cm]{python}
+\centering
+\caption{Lenguaje Python.}
+\label{fig:FUNCACT}
+\end{figure}
+
+\subsubsubsection{PyCharm}
+El entorno de desarrollo integrado que se utilizo es PyCharm, es un entorno muy popular utilizado en la comunidad de python que provee una manera sencilla de programar en python eligiendo la version de python que deseamos compilar y agregar los packetes necesarios para el desarrollo de nuestros proyectos.
+
+\begin{figure}[h]
+\includegraphics[width=3cm, height=3cm]{pycharm}
+\centering
+\caption{IDE Pycharm.}
+\label{fig:FUNCACT}
+\end{figure}
+
 \subsubsubsection{Package}
-asd
+Para el desarrollo de los algoritmos de aprendizaje para el perceptron multicapa se utilizo una libreria para Inteligencia Artificial llamada NeuPy. Esta libreria actualmente en su version 0.6 soporta diferentes tipos de Redes Neuronales desde un perceptron simple hasta modelos de deep learning \cite{neupy}.
+
+Actualmente soporta la siguientes características:
+
+\begin{enumerate}
+\item Deep Learning
+\item Reinforcement Learning (RL)
+\item Convolutional Neuronal Networks (CNN)
+\item Recurrent Neuronal Networks (RNN)
+\item Restricted Boltzmann Machine (RBM)
+\item Multilayer Perceptron (MLP)
+\item Networks based on the Radial Basis Functions (RBFN)
+\item Ensemble Networks
+\item Competitive Networks
+\item Basic Linear Networks
+\item Regularizartion Algorithms
+\item Step Update Algorithms
+\end{enumerate}
+
+\begin{figure}[h]
+\includegraphics[width=3.5cm, height=3.5cm]{neupy}
+\centering
+\caption{Funciones de activación.}
+\label{fig:FUNCACT}
+\end{figure}
+
 \subsubsection{Implementacion}
-asd
+
 \subsubsubsection{Back Propagation}
 asd
 \subsubsubsection{Segundo Orden}
 asd
 \subsubsubsection{R-PROP}
 asd
-\subsubsubsection{Algoritmos Geneticos}
-asd
 
 \subsection{Resultados}
 asd
 \subsection{Conclusiones}
 asd
-
-
 
 
 \bibliographystyle{unsrt}
