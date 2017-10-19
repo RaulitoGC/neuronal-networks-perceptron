@@ -20,12 +20,12 @@ X = preprocessing.scale(X) # feature scaling
 Y = np.array(Y)
 
 # the first 2500 out of 3000 emails will serve as training data
-x_train = X[0:4025]
-y_train = Y[0:4025]
+x_train = X[0:3067]
+y_train = Y[0:3067]
 
 # the rest 500 emails will serve as testing data
-x_test = X[4025:]
-y_test = Y[4025:]
+x_test = X[3067:]
+y_test = Y[3067:]
 
 lmnet = algorithms.LevenbergMarquardt(
     [
@@ -35,17 +35,20 @@ lmnet = algorithms.LevenbergMarquardt(
     ],
     verbose=True,
     shuffle_data=True,
-
+    mu=0.1,
+    mu_update_factor=1.2,
+    error="mse",
 )
-lmnet.train(input_train=x_train,target_train=y_train,
-            input_test=x_test,target_test=y_test,epochs=200)
+lmnet.train(input_train=x_train,target_train=y_train,epochs=200)
 
-
-lmnet.architecture()
 plots.error_plot(lmnet)
 
+y_train_predicted = lmnet.predict(x_train).round()
 y_test_predicted = lmnet.predict(x_test).round()
 
+
+print(metrics.classification_report(y_train_predicted, y_train))
+print(metrics.confusion_matrix(y_train_predicted, y_train))
 print()
 print(metrics.classification_report(y_test_predicted, y_test))
 print(metrics.confusion_matrix(y_test_predicted, y_test))
