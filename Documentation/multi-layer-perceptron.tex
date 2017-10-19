@@ -701,13 +701,124 @@ Actualmente soporta la siguientes características:
 \end{figure}
 
 \subsubsection{Implementacion}
-
+A continuación pasaremos a describir los métodos de aprendizaje para nuestro perceptron multicapa.
 \subsubsubsection{Back Propagation}
-asd
-\subsubsubsection{Segundo Orden}
-asd
+
+Para describir mejor el procedimientos pasaremos de describir el codigo por partes:
+\begin{enumerate}
+\item
+Se procede a importar los paquetes necesarios para la implementación, creamos las funciones de activación y la funcion derivada
+\newline
+\begin{figure}[h]
+\includegraphics[width=5cm, height=2cm]{mlp_import}
+\centering
+\caption{Importar paquetes necesarios.}
+\label{fig:RPROP_IMPORT}
+\end{figure}
+
+\item
+Ahora leeremos nuestro archivo $Train.csv$ que contiene los datos normalizados
+ \begin{figure}[h]
+\includegraphics[width=6cm, height=2cm]{mlp_read}
+\centering
+\caption{Leer la data de entrenamiento.}
+\label{fig:RPROP_INIT}
+\end{figure}
+
+\item
+Asignamos los valores a nuestros arreglos para poder guardar los valores locales que se van creando, al igual que los valores random para los pesos iniciales
+ \begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{mlp_assign}
+\centering
+\caption{Asignar valores de entrada a nuestros arreglos.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\item
+Llamamos al metodo de Rprop de la liberia neuPy para poder pasarle los parametros de entrada y las configuraciones necesarias
+\begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{mlp_train}
+\centering
+\caption{Crear las epocas y comenzar a iterar.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\clearpage
+\item
+Finalmente Podemos mostrar los valores que se han obtenido luego del entrenamiento y del recuerdo
+ \begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{mlp_result}	
+\centering
+\caption{Imprimir los resultados.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\end{enumerate}
+
+
 \subsubsubsection{R-PROP}
-asd
+Para describir mejor el procedimientos pasaremos de describir el codigo por partes:
+\begin{enumerate}
+\item
+Se procede a importar los paquetes necesarios para la implementación
+\newline
+\begin{figure}[h]
+\includegraphics[width=6cm, height=2cm]{rprop_import}
+\centering
+\caption{Importar paquetes necesarios.}
+\label{fig:RPROP_IMPORT}
+\end{figure}
+
+\item
+ Ahora asignaremos nuestros vectores de entrada y salida respectivamente.
+ \begin{figure}[h]
+\includegraphics[width=3cm, height=1.5cm]{rprop_init}
+\centering
+\caption{Inicializar vectores.}
+\label{fig:RPROP_INIT}
+\end{figure}
+\clearpage
+\item
+Se procede a leer la data de entrenamiento
+ \begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{rprop_read}
+\centering
+\caption{Leer data de entrenamiento.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\item
+Asignamos los valores a nuestros arreglos para poder guardar los valores locales que se van creando
+ \begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{rprop_assign}
+\centering
+\caption{Asignar valores de entrada a nuestros arreglos.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\item
+Llamamos al metodo de Rprop de la liberia neuPy para poder pasarle los parametros de entrada y las configuraciones necesarias
+\begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{rprop_creation}
+\centering
+\caption{Llamar al constructor del RPROP.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\clearpage
+\item
+Finalmente Podemos mostrar los valores que se han obtenido luego del entrenamiento y del recuerdo
+ \begin{figure}[h]
+\includegraphics[width=8cm, height=3cm]{rprop_finalize}
+\centering
+\caption{Imprimir las salidas.}
+\label{fig:RPROP_READ}
+\end{figure}
+
+\end{enumerate}
+
+\clearpage
+\subsubsubsection{Segundo Orden}
 
 \subsection{Conclusiones}
 
